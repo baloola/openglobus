@@ -20,15 +20,28 @@ import {
     Program,
     Vec4,
     Vec2,
-    GeoImage
+    GeoImage,
+    WMS
 } from "../../lib/og.es.js";
+var ne = new WMS("Natural Earth", {
+        visibility: true,
+        isBaseLayer: false,
+        url: 'https://services.sentinel-hub.com/ogc/wms/0635c213-17a1-48ee-aef7-9d1731695a54',
+        layers: 'AWS_NO2-VISUALISATION',
+        version: '1.3.0',
+        opacity: 0.7,
+        extra: {
+            transparent: true
+        }
+    });
 
 const globus = new Globe({
     target: "earth",
     name: "Earth",
-    terrain: new GlobusRgbTerrain(),
-    layers: [new OpenStreetMap(), new Bing()],
+   // terrain: new GlobusRgbTerrain(),
+    layers: [new OpenStreetMap(),ne],
     atmosphereEnabled: false,
+     sun: { active: false },
     fontsSrc: "../../res/fonts",
 });
 
@@ -70,10 +83,10 @@ let depthPreview = new control.FramebufferPreview({
                 float ndcZ = z * 2.0 - 1.0;
                 return (2.0 * near * far) / (far + near - ndcZ * (far - near));
             }
-            
+
             void mainImage(out vec4 fragColor, in vec2 fragCoord){
                 float near = 10.0;
-                float far = 10000.0;          
+                float far = 10000.0;
                 float depth = texture(inputTexture, fragCoord).r;
                 float linearDepth = linearizeDepth(depth, near, far);
                 float normalized = (linearDepth - near) / (far - near);
