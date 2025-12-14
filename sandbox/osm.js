@@ -103,4 +103,3 @@ globus.planet.addControl(new control.KeyboardNavigation({
 
 globus.planet.renderer.controls.SimpleSkyBackground.colorOne = "black";
 globus.planet.renderer.controls.SimpleSkyBackground.colorTwo = "black";
-
