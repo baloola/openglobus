@@ -20,28 +20,15 @@ import {
     Program,
     Vec4,
     Vec2,
-    GeoImage,
-    WMS
+    GeoImage
 } from "../../lib/og.es.js";
-var ne = new WMS("Natural Earth", {
-        visibility: true,
-        isBaseLayer: false,
-        url: 'https://services.sentinel-hub.com/ogc/wms/0635c213-17a1-48ee-aef7-9d1731695a54',
-        layers: 'AWS_NO2-VISUALISATION',
-        version: '1.3.0',
-        opacity: 0.7,
-        extra: {
-            transparent: true
-        }
-    });
 
 const globus = new Globe({
     target: "earth",
     name: "Earth",
-   // terrain: new GlobusRgbTerrain(),
-    layers: [new OpenStreetMap(),ne],
+    terrain: new GlobusRgbTerrain(),
+    layers: [new OpenStreetMap(), new Bing()],
     atmosphereEnabled: false,
-     sun: { active: false },
     fontsSrc: "../../res/fonts",
 });
 
