@@ -70,10 +70,10 @@ let depthPreview = new control.FramebufferPreview({
                 float ndcZ = z * 2.0 - 1.0;
                 return (2.0 * near * far) / (far + near - ndcZ * (far - near));
             }
-
+            
             void mainImage(out vec4 fragColor, in vec2 fragCoord){
                 float near = 10.0;
-                float far = 10000.0;
+                float far = 10000.0;          
                 float depth = texture(inputTexture, fragCoord).r;
                 float linearDepth = linearizeDepth(depth, near, far);
                 float normalized = (linearDepth - near) / (far - near);
